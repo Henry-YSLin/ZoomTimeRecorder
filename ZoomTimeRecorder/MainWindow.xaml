@@ -1,0 +1,84 @@
+﻿<Window
+    x:Class="ZoomTimeRecorder.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ZoomTimeRecorder"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Zoom Records"
+    Width="800"
+    Height="450"
+    Closing="Window_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    ShowInTaskbar="False"
+    Visibility="Hidden"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ContextMenu
+            x:Key="trayMenu"
+            Focusable="True"
+            StaysOpen="False">
+            <MenuItem
+                Name="btnViewRecords"
+                Click="btnViewRecords_Click"
+                Header="View Records" />
+            <MenuItem Click="MenuItem_Click" Header="Quit" />
+            <MenuItem Click="MenuItem_Click_1" Header="Cancel" />
+        </ContextMenu>
+    </Window.Resources>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Summary}">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock
+                            HorizontalAlignment="Stretch"
+                            Foreground="DarkGray"
+                            Text="{Binding StartTime, StringFormat='{}{0:yyyy MMM}'}"
+                            TextAlignment="Center"
+                            Visibility="{Binding MonthSeparator, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <StackPanel Margin="10" Visibility="{Binding MonthSeparator, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontWeight="Bold"
+                                    Text="From" />
+                                <TextBlock Margin="0,0,5,0" Text="{Binding StartTime, StringFormat='{}{0:ddd yyyy MMM dd hh:mm tt}'}" />
+                                <TextBlock Text="(Approx)" Visibility="{Binding StartTimeApprox, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            </StackPanel>
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontWeight="Bold"
+                                    Text="Duration" />
+                                <TextBlock Text="{Binding Duration, StringFormat='{}{0:hh\\hmm\\m}'}" />
+                            </StackPanel>
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontWeight="Bold"
+                                    Text="To" />
+                                <TextBlock Margin="0,0,5,0" Text="{Binding StartTime, StringFormat='{}{0:ddd yyyy MMM dd hh:mm tt}'}" />
+                                <TextBlock Text="(Approx)" Visibility="{Binding StartTimeApprox, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            </StackPanel>
+                            <Border
+                                Height="1"
+                                Margin="5,0,5,0"
+                                HorizontalAlignment="Stretch"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
