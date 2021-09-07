@@ -65,8 +65,8 @@
                                     Margin="0,0,5,0"
                                     FontWeight="Bold"
                                     Text="To" />
-                                <TextBlock Margin="0,0,5,0" Text="{Binding StartTime, StringFormat='{}{0:ddd yyyy MMM dd hh:mm tt}'}" />
-                                <TextBlock Text="(Approx)" Visibility="{Binding StartTimeApprox, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                <TextBlock Margin="0,0,5,0" Text="{Binding EndTime, StringFormat='{}{0:ddd yyyy MMM dd hh:mm tt}'}" />
+                                <TextBlock Text="(Approx)" Visibility="{Binding EndTimeApprox, Converter={StaticResource BoolToVisibilityConverter}}" />
                             </StackPanel>
                             <Border
                                 Height="1"
